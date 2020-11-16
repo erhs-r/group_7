@@ -1,2 +1,3 @@
 # group_7
 # nick
+# add nick again
