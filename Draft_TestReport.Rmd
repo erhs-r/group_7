@@ -1,0 +1,25 @@
+---
+title: "Draft_TestReport"
+author: "Sarah Derda"
+date: "11/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+ufo_sightings <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-25/ufo_sightings.csv")
+ufo_sightings
+
+```
+
+## County Data
+
+```{r counties}
+
+us_counties <- readr::read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")
+us_counties
+
+```
+
+
