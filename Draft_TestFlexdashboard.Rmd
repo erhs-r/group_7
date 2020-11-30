@@ -1,0 +1,29 @@
+---
+title: "Column Orientation"
+author: "Sarah Derda"
+date: "11/29/2020"
+output: flexdashboard::flexdashboard
+
+---
+
+Column
+-------------------------------------
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+   
+Column
+-------------------------------------
+   
+### Chart 2
+
+```{r}
+```   
+ 
+### Chart 3
+    
+```{r}
+```
+
+```
