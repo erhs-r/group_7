@@ -1,16 +1,20 @@
 ---
 title: "Column Orientation"
-author: "Sarah Derda"
-date: "11/29/2020"
-output: flexdashboard::flexdashboard
-
+output: flexdashboard::flex_dashboard
 ---
-
+    
 Column
 -------------------------------------
+    
+### Chart 1
+    
+```{r ufo sightings}
 
-```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+ufo_sightings <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-25/ufo_sightings.csv")
+ufo_sightings
+
 ```
    
 Column
@@ -24,6 +28,4 @@ Column
 ### Chart 3
     
 ```{r}
-```
-
 ```
