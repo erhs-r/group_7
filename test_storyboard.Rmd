@@ -1,0 +1,69 @@
+---
+title: "Testing UFO Sightings and COVID-19"
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true
+---
+
+```{r global_options}
+
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning=FALSE, 
+                      message=FALSE, 
+                      error=FALSE)
+
+```
+
+```{r libraries}
+
+library(readr)
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(forcats)
+library(stringr)
+library(scales)
+library(broom)
+library(purrr)
+
+```
+
+### Frame 1
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+
+ufo_sightings <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-25/ufo_sightings.csv")
+
+print(ufo_sightings)
+
+```
+
+*** 
+
+Some commentary about Frame 1.
+djsdslkfjkdsjfkldsjflkflkdsf
+fksdjfjsklfjsdkljflksdfljsfkl
+sjnfsdjfjksdfsljffdjflksjfjf
+
+### Frame 2 {data-commentary-width=400}
+
+```{r}
+```
+
+*** 
+
+Some commentary about Frame 2.
+hfksdhfjdjfhjdsfhjdhfhfjkfsf
+kdfhdsjfhjksdhfhdshfhjsdhfsjfk
+jdhkfjdhsjfhsdkjhfhfkjsdfhjksdhfk
+
+### Frame 3 {data-commentary-width=400}
+
+```{r}
+
+```
+
+***
+
+This is the commentary for Fram 3.
