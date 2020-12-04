@@ -33,4 +33,6 @@ ufo <- ufo %>%
   filter(!str_detect(string = City, pattern = "Canada"))
 ufo$citysta <- paste(ufo$City, ufo$State, sep = ", ") 
 ufo$position <- map(ufo$citysta, ggmap::geocode)
-ufo %>% unnest(cols = "position")
+ufo2 <- ufo %>% unnest(cols = "position")
+write.csv(ufo2, file = "raw-data/ufo_withlatlong.csv")
+
