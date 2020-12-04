@@ -27,3 +27,10 @@ cases_pop_county <- cases_pop_county %>%
 cases_pop_county <- cases_pop_county[!duplicated(cases_pop_county$county),]
 cases_pop_county <- cases_pop_county[,c(4:6,9)]
 colnames(cases_pop_county)[c(1,3)] <- c("population", "cases")
+
+ufo <- readxl::read_excel("raw-data/ufo2019.xlsx")
+ufo <- ufo %>% 
+  filter(!str_detect(string = City, pattern = "Canada"))
+ufo$citysta <- paste(ufo$City, ufo$State, sep = ", ") 
+ufo$position <- map(ufo$citysta, ggmap::geocode)
+ufo %>% unnest(cols = "position")
