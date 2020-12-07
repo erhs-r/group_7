@@ -14,7 +14,7 @@ cases <- read.csv("raw-data/covidcases.csv")
 
 cases_by_county <- cases %>% 
   group_by(county) %>% 
-  summarise(total = sum(cases))
+  summarise(total = last(cases))
 
 cases_by_county$county <- as.character(cases_by_county$county)
 pltn$NAME <- as.character(pltn$NAME)
@@ -28,4 +28,4 @@ cases_pop_county <- cases_pop_county[!duplicated(cases_pop_county$county),]
 cases_pop_county <- cases_pop_county[,c(4:6,9)]
 colnames(cases_pop_county)[c(1,3)] <- c("population", "cases")
 
-cases_pop_county$casepercap <- cases_pop_county$cases / cases_pop_county$population
+cases_pop_county$casepercap <- (cases_pop_county$cases / cases_pop_county$population * 100000)

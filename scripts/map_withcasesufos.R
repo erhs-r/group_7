@@ -20,8 +20,11 @@ USA <- getData("GADM", country = "usa", level = 2)
 
 popup_dat <- paste0("<strong>County: </strong>", 
                     cases_pop_county$county, 
-                    "<br><strong>Cases Per Capita: </strong>", 
-                    cases_pop_county$casepercap)
+                    "<br><strong>Cases Per 100,000: </strong>", 
+                    floor(cases_pop_county$casepercap))
+
+popup_ufo <- paste0("<strong>Description: </strong>", 
+                      ufo$Description)
 
 pal <- colorQuantile("YlOrRd", NULL, n = 10)
 leaflet() %>% 
@@ -34,15 +37,13 @@ leaflet() %>%
               color = "#BDBDC3", 
               weight = 1,
               popup = popup_dat) %>% 
-  
-  addCircleMarkers(ufo$lon, 
-                   ufo$lat, 
-                   radius = 5, 
-                   fill = T,
-                   fillOpacity = 0.2,
-                   opacity = 0.6) %>% 
+  addMarkers(ufo$lon, 
+             ufo$lat, 
+             clusterOptions = markerClusterOptions(),
+             icon = makeIcon("alien.png"),
+             popup = popup_ufo) %>% 
   addLegend(position = "bottomleft", pal = pal, values = cases_pop_county$casepercap,
-            title = "Cases per Capita",
+            title = "Cases per 100,000",
             opacity = 1)
 
   
