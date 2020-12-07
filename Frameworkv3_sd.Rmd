@@ -31,8 +31,13 @@ library(raster)
 
 ```{r data import, include = FALSE}
 
-counties_pop_casew <- read_csv("/Users/sarahderda/Desktop/group_7/raw-data")
-
+cases_pop_county <- read.csv("raw-data/counties_pop_casew.csv")
+ufo <- read.csv("raw-data/ufo_withlatlong.csv")
+USA <- getData("GADM", country = "usa", level = 2)
+popup_dat <- paste0("<strong>County: </strong>", 
+                    cases_pop_county$county, 
+                    "<br><strong>Cases Per Capita: </strong>", 
+                    cases_pop_county$casepercap)
 
 ```
 
@@ -40,26 +45,7 @@ counties_pop_casew <- read_csv("/Users/sarahderda/Desktop/group_7/raw-data")
 
 ```{r}
 
-```
-
-*** 
-
-Some commentary about Frame 1.
-
-### Frame 2 {data-commentary-width=350}
-
-```{r interactive map}
-
-cases_pop_county <- read.csv("raw-data/counties_pop_casew.csv")
-ufo <- read.csv("raw-data/ufo_withlatlong.csv")
-USA <- getData("GADM", country = "usa", level = 2)
-
-popup_dat <- paste0("<strong>County: </strong>", 
-                    cases_pop_county$county, 
-                    "<br><strong>Cases Per Capita: </strong>", 
-                    cases_pop_county$casepercap)
-
-pal <- colorQuantile("YlOrRd", NULL, n = 10)
+pal <- colorQuantile("YlOrRd", NULL, n = 9)
 leaflet() %>% 
   addTiles() %>% 
   fitBounds(-102.03,37,-109.03, 41) %>% 
@@ -80,6 +66,16 @@ leaflet() %>%
   addLegend(position = "bottomleft", pal = pal, values = cases_pop_county$casepercap,
             title = "Cases per Capita",
             opacity = 1)
+
+```
+
+*** 
+
+Some commentary about Frame 1.
+
+### Frame 2 {data-commentary-width=350}
+
+```{r interactive map}
 
 ```
 
