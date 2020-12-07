@@ -1,0 +1,52 @@
+---
+title: "UFO Sightings and COVID-19"
+author: "Group 7 - Evan Conaway, James Seidel, Sarah Derda"
+runtime: shiny
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true
+    theme: cerulean
+---
+
+### Frame 1 {data-commentary-width=350}
+
+```{r libraries/setup, include = FALSE}
+
+library(flexdashboard)
+library(readr)
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(forcats)
+library(stringr)
+library(scales)
+library(broom)
+library(purrr)
+
+```
+
+*** 
+
+Some commentary about Frame 1.
+
+### Frame 2 {data-commentary-width=350}
+
+```{r}
+
+
+
+```
+
+*** 
+
+Some commentary about Frame 2.
+
+### Frame 3 {data-commentary-width=350}
+
+```{r}
+
+```
+
+***
+
+Some commentary about Frame 3.
