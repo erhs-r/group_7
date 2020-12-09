@@ -25,6 +25,8 @@ ufofilter <-  drop_na(ufo)
 ufocounty <-map.where(database="county", 
                  ufofilter$long, ufofilter$lat)
 
+
+
 ufofinal <- ufofilter %>% 
   mutate(county = ufocounty)
 
