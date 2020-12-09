@@ -34,16 +34,20 @@ library(raster)
 cases_pop_county <- read.csv("raw-data/counties_pop_casew.csv")
 ufo <- read.csv("raw-data/ufo_withlatlong.csv")
 USA <- getData("GADM", country = "usa", level = 2)
+
 popup_dat <- paste0("<strong>County: </strong>", 
                     cases_pop_county$county, 
-                    "<br><strong>Cases Per Capita: </strong>", 
-                    cases_pop_county$casepercap)
+                    "<br><strong>Cases Per 100,000: </strong>", 
+                    floor(cases_pop_county$casepercap))
+
+popup_ufo <- paste0("<strong>Description: </strong>", 
+                      ufo$Description)
 
 ```
 
 ### Frame 1 {data-commentary-width=350}
 
-```{r}
+```{r interactive map}
 
 pal <- colorQuantile("YlOrRd", NULL, n = 9)
 leaflet() %>% 
@@ -56,15 +60,13 @@ leaflet() %>%
               color = "#BDBDC3", 
               weight = 1,
               popup = popup_dat) %>% 
-
-  addCircleMarkers(ufo$lon, 
-                   ufo$lat, 
-                   radius = 5, 
-                   fill = T,
-                   fillOpacity = 0.2,
-                   opacity = 0.6) %>% 
+  addMarkers(ufo$lon, 
+             ufo$lat, 
+             clusterOptions = markerClusterOptions(),
+             icon = makeIcon("alien.png"),
+             popup = popup_ufo) %>% 
   addLegend(position = "bottomleft", pal = pal, values = cases_pop_county$casepercap,
-            title = "Cases per Capita",
+            title = "Cases per 100,000",
             opacity = 1)
 
 ```
@@ -75,7 +77,9 @@ Some commentary about Frame 1.
 
 ### Frame 2 {data-commentary-width=350}
 
-```{r interactive map}
+```{r scatterplots}
+
+
 
 ```
 
@@ -85,7 +89,7 @@ Some commentary about Frame 2.
 
 ### Frame 3 {data-commentary-width=350}
 
-```{r}
+```{r death table}
 
 ```
 
