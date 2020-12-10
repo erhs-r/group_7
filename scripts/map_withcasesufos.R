@@ -18,21 +18,29 @@ cases_pop_county <- read.csv("raw-data/counties_pop_casew.csv")
 ufo <- read.csv("raw-data/ufo_withlatlong.csv")
 USA <- getData("GADM", country = "usa", level = 2)
 
+temp <- merge(USA, cases_pop_county,
+              by.x = c("NAME_1", "NAME_2"), by.y = c("state", "county"),
+              all.x = TRUE)
+
 popup_dat <- paste0("<strong>County: </strong>", 
-                    cases_pop_county$county, 
+                    temp$NAME_2, 
                     "<br><strong>Cases Per 100,000: </strong>", 
-                    floor(cases_pop_county$casepercap))
+                    floor(temp$casepercap))
 
 popup_ufo <- paste0("<strong>Description: </strong>", 
                       ufo$Description)
 
+pal <- colorNumeric(
+  palette = "YlOrRd",
+  n = 10,
+  domain = temp$casepercap)
 pal <- colorQuantile("YlOrRd", NULL, n = 10)
 leaflet() %>% 
   addTiles() %>% 
   fitBounds(-102.03,37,-109.03, 41) %>% 
   addTiles() %>% 
-  addPolygons(data = USA,
-              fillColor = ~pal(cases_pop_county$casepercap), 
+  addPolygons(data = temp,
+              fillColor = ~pal(temp$casepercap), 
               fillOpacity = 0.6, 
               color = "#BDBDC3", 
               weight = 1,
@@ -44,6 +52,6 @@ leaflet() %>%
              popup = popup_ufo) %>% 
   addLegend(position = "bottomleft", pal = pal, values = cases_pop_county$casepercap,
             title = "Cases per 100,000",
-            opacity = 1)
-
+            opacity = 1,
+            labFormat = labelFormat(transform = print))
   

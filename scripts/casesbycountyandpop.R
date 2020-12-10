@@ -10,22 +10,23 @@ pltn <- get_acs(geography = "county",
                 variables = c(pop = "B00001_001"),
                 year = 2018)
 
-cases <- read.csv("raw-data/covidcases.csv")
+rcases <- read.csv("raw-data/covidcases.csv")
 
-cases_by_county <- cases %>% 
-  group_by(county) %>% 
-  summarise(total = last(cases))
+rcases$ncnty <- paste(rcases$county, rcases$state, sep = " County, ")
+cases_by_county <- rcases %>% 
+  group_by(ncnty) %>% 
+  summarize(total = last(cases))
 
-cases_by_county$county <- as.character(cases_by_county$county)
-pltn$NAME <- as.character(pltn$NAME)
+colnames(pltn)[2] <- "ncnty"
+cases_by_county$ncnty <- as.character(cases_by_county$ncnty)
+pltn$ncnty <- as.character(pltn$ncnty)
 
 cases_pop_county <- pltn %>% 
-  regex_inner_join(cases_by_county, by = c(NAME = "county")) 
+  inner_join(cases_by_county, by = "ncnty") 
 
+
+cases_pop_county$casepercap <- (cases_pop_county$total / cases_pop_county$estimate * 100000)
 cases_pop_county <- cases_pop_county %>% 
-  inner_join(cases, by="county")
-cases_pop_county <- cases_pop_county[!duplicated(cases_pop_county$county),]
-cases_pop_county <- cases_pop_county[,c(4:6,9)]
-colnames(cases_pop_county)[c(1,3)] <- c("population", "cases")
-
-cases_pop_county$casepercap <- (cases_pop_county$cases / cases_pop_county$population * 100000)
+  separate(ncnty, 
+           into = c("county", "state"),
+           sep = " County, ")
