@@ -8,7 +8,12 @@ output:
     theme: cerulean
 ---
 
-```{r libraries/setup, include = FALSE}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+
+```{r libraries_setup, include = FALSE, eval=TRUE}
 
 library(flexdashboard)
 library(readr)
@@ -37,7 +42,7 @@ library(dplyr)
 
 ```
 
-```{r data import, include = FALSE}
+```{r data_import, include = FALSE, eval=TRUE}
 
 cases_pop_county <- read.csv("raw-data/counties_pop_casew.csv")
 ufo <- read.csv("raw-data/ufo_withlatlong.csv")
@@ -55,7 +60,7 @@ popup_ufo <- paste0("<strong>Description: </strong>",
 
 ### Frame 1 {data-commentary-width=350}
 
-```{r interactive map}
+```{r interactive_map, eval=TRUE}
 
 pal <- colorQuantile("YlOrRd", NULL, n = 9)
 leaflet() %>% 
@@ -83,25 +88,13 @@ leaflet() %>%
 
 Some commentary about Frame 1.
 
-### Frame 2 {data-commentary-width=350}
-
-```{r scatterplots}
-
-###This script is for a side-by-side scatterplot of covid cases by state
+```{r scatterplot_framework, include = FALSE, eval=TRUE}
 
 # Read in data
-covidbycounty <- read_csv("JamesWork/counties_pop_casew.xlsx") 
 covid <- read_csv("raw-data/covidcases.csv")
 ufobycounty <- read_csv("JamesWork/ufo2019counties") 
 
-#isolated county, but couldnt get fips to work so stopped
-#dont think county will be great anyway, too few data points compared to counties
 ufobycounty<- drop_na(ufobycounty)
-justcounty <- gsub(".*,","",ufobycounty$county)
-
-ufobycounty <- ufobycounty %>% 
-  mutate(County = justcounty) %>% 
-  dplyr::select(-county)
 
 #prepared data
 
@@ -146,26 +139,50 @@ ufoandcovid <- ufobystate %>%
 
 ##ggplots with data
 
+ufoandcovid
+
+statenames <- ufoandcovid$State
+statenames[with(ufoandcovid, 
+                !(covid_cases > 27000 | ufo_sightings > 185))] <- ""
+
 plotone <- ufoandcovid %>% 
 ggplot(aes(x=ufo_sightings, y = covid_cases)) +
   geom_point() +
-  geom_text_repel(label = ufoandcovid$State, size = 2) +
-  labs(x = "UFO sightings", y = "Covid cases", 
-       title = "2020 Covid cases by 2019 UFO sightings in the lower 48 states (per capita on right)")+
+  geom_text(label = statenames, size = 3, nudge_x = 18)+
+  labs(title = "2020 COVID cases by 2019 UFO sightings in the lower 48 states (per capita on right)")+
+  xlab("UFO sightings") +
+  ylab("COVID cases") +
   theme_tufte()
 
+statenames2 <- ufoandcovid$State
+statenames2[with(ufoandcovid, !(covid_per_cap > 0.01 | ufo_per_cap > 0.00005))] <- ""
+
+
 plottwo <- ufoandcovid %>% 
-  ggplot(aes(x=ufo_per_cap, y = covid_per_cap)) +
+  ggplot(aes(x=ufo_per_cap, y = covid_per_cap,)) +
   geom_point() +
-  geom_text_repel(label = ufoandcovid$State, size = 2) +
+  geom_text(label = statenames2, size = 3,
+             position = position_nudge(x = 0.00001))+
   labs(x = "UFO sightings per capita", y = "Covid Cases per capita")+
   theme_tufte() +
   theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
         axis.text.y = element_blank())
 
-##final product
+#newcode
 
-final_plot <- grid.arrange(plotone, plottwo, ncol = 2)
+ply1 <- ggplotly(plotone)
+ply2 <- ggplotly(plottwo)
+
+
+```
+
+### Frame 2 {data-commentary-width=350}
+
+```{r scatterplots_final, eval=TRUE}
+
+
+
+subplot(ply1, ply2, nrows=1)
 
 ```
 
@@ -175,7 +192,7 @@ Some commentary about Frame 2.
 
 ### Frame 3 {data-commentary-width=350}
 
-```{r death table}
+```{r death_table, eval= TRUE}
 
 ### This script is designed to create the data table for our flex dashboard.
 ### It is a table of all the Covid Deaths. It is included to remind us of everyone that has passed due 
@@ -184,14 +201,16 @@ Some commentary about Frame 2.
 covid <- read_csv("raw-data/covidcases.csv")
 
 covid <- covid %>% 
-  dplyr::select(-fips, -cases) %>% 
-  dplyr::filter(deaths == 1)%>% 
-  dplyr::select(-deaths)
+  mutate(County = paste(covid$county,covid$state,sep = ", "))
+
+covid <- covid %>% 
+    group_by(County) %>% 
+  dplyr::summarise(Deaths = last(deaths))
 
 ### This code chunk works better when knit into flexdashboard
 
 datatable(covid, 
-          colnames = c("Date", "County", "State"), 
+          colnames = c("County", "Deaths"), 
           extensions = "Scroller", style="bootstrap", 
           class="compact", width="100%", 
           options=list(deferRender=TRUE, scrollY=300, scroller=TRUE))
