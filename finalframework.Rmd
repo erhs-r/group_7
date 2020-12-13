@@ -58,7 +58,7 @@ popup_ufo <- paste0("<strong>Description: </strong>",
 
 ```
 
-### Interactive Map Showing UFO Sightings and Confirmed Cases of COVID-19 per 100,000 {data-commentary-width=350}
+### **Interactive Map** UFO Sightings and Confirmed Cases of COVID-19 per 100,000 {data-commentary-width=300}
 
 ```{r interactive_map, eval=TRUE}
 
@@ -178,7 +178,7 @@ ply2 <- ggplotly(plottwo)
 
 ```
 
-### Looking into 2020 COVID-19 Cases and 2019 UFO Sightings in the Lower 48 States  {data-commentary-width=350}
+### **Scatterplots** Looking into 2020 COVID-19 Cases and 2019 UFO Sightings in the Lower 48 States  {data-commentary-width=300}
 
 ```{r scatterplots_final, eval=TRUE}
 
@@ -192,7 +192,7 @@ The scatterplot on the left shows COVID-19 cases in 2020 according to state. The
 
 Data sources:
 
-### Table of Total Deaths per County in the United States {data-commentary-width=350}
+### **Mortality Table** Table of Total Deaths per County in the United States {data-commentary-width=300}
 
 ```{r death_table, eval= TRUE}
 
