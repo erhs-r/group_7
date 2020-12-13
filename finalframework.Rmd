@@ -86,7 +86,9 @@ leaflet() %>%
 
 *** 
 
-Some commentary about Frame 1.
+When first opened, the interactive map shows the parameter of Colorado. However, it shows the entire United States when zoomed outward. It's designed to be a county-level map where each county is outlined. The gradient color scale on the lower left represents confirmed COVID-19 cases per 100,000 people. The lighter the color represents less confirmed cases while the darker red color indicates higher confirmed cases per 100,000 people within that county. When the individual counties are clicked, a bubble pops up stating the name of the county along with the amount of cases. Additionally, there are multiple alien icons indicating an occurrence of at least one UFO sighting. The circles with numbers inside also indicate the number of UFO sightings, but they are condensed to avoid overlapping alien icons. When clicked, they will expand to reveal more alien icons. When the icons are clicked, the description of the UFO sighting appears.
+
+Data sources: 
 
 ```{r scatterplot_framework, include = FALSE, eval=TRUE}
 
@@ -149,9 +151,9 @@ plotone <- ufoandcovid %>%
 ggplot(aes(x=ufo_sightings, y = covid_cases)) +
   geom_point() +
   geom_text(label = statenames, size = 3, nudge_x = 18)+
-  labs(title = "2020 COVID cases by 2019 UFO sightings in the lower 48 states (per capita on right)")+
-  xlab("UFO sightings") +
-  ylab("COVID cases") +
+  labs(title = "COVID Cases (2020) by UFO Sightings (2019) in Lower 48 states (per Capita on Right)")+
+  xlab("UFO Sightings") +
+  ylab("COVID Cases") +
   theme_tufte()
 
 statenames2 <- ufoandcovid$State
@@ -163,7 +165,7 @@ plottwo <- ufoandcovid %>%
   geom_point() +
   geom_text(label = statenames2, size = 3,
              position = position_nudge(x = 0.00001))+
-  labs(x = "UFO sightings per capita", y = "Covid Cases per capita")+
+  labs(x = "UFO Sightings per Capita", y = "COVID Cases per Capita")+
   theme_tufte() +
   theme(axis.text.x = element_blank(), axis.ticks = element_blank(),
         axis.text.y = element_blank())
@@ -180,15 +182,15 @@ ply2 <- ggplotly(plottwo)
 
 ```{r scatterplots_final, eval=TRUE}
 
-
-
 subplot(ply1, ply2, nrows=1)
 
 ```
 
 *** 
 
-Some commentary about Frame 2.
+The scatterplot on the left shows COVID-19 cases in 2020 according to state. The plot on the right shows UFO sightings in 2019 according to state. For the case plot, there are eight notable states in which confirmed cases are the highest - Texas, Georgia, Vermont, Kentucky, Mississippi, Arizona, Florida, and California. For the sightings plot, the top ten states are shown to have the highest number of UFO sightings - New York, South Dakota, Montana, North Carolina, Wyoming, Virginia, Arizona, New Jersey, Massachusetts. Visually, there appears to be no correlation between UFO sightings and the number of confirmed cases.
+
+Data sources:
 
 ### Table of Total Deaths per County in the United States {data-commentary-width=350}
 
@@ -219,4 +221,6 @@ datatable(covid,
 
 ***
 
-Some commentary about Frame 3.
+The following table shows each county within the United States by name on the right side along with the total number of deaths in that county on the left. This data was recorded on the ... Confirmed cases are important in looking at the current direction the disease is progressing. However, looking at the mortality reveals the burden of the disease, which is important in deciding where to allocate resources. The search bar can be used for looking up a specific county.
+
+Data source:
