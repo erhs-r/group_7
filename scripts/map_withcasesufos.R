@@ -52,6 +52,4 @@ leaflet() %>%
              popup = popup_ufo) %>% 
   addLegend(position = "bottomleft", pal = pal, values = cases_pop_county$casepercap,
             title = "Cases per 100,000",
-            opacity = 1,
-            labFormat = labelFormat(transform = print))
-  
+            opacity = 1,)
