@@ -188,7 +188,7 @@ subplot(ply1, ply2, nrows=1)
 
 *** 
 
-The scatterplot on the left shows COVID-19 cases in 2020 according to state. The plot on the right shows UFO sightings in 2019 according to state. For the case plot, there are eight notable states in which confirmed cases are the highest - Texas, Georgia, Vermont, Kentucky, Mississippi, Arizona, Florida, and California. For the sightings plot, the top ten states are shown to have the highest number of UFO sightings - New York, South Dakota, Montana, North Carolina, Wyoming, Virginia, Arizona, New Jersey, Massachusetts. Visually, there appears to be no correlation between UFO sightings and the number of confirmed cases.
+The scatterplot on the left shows COVID-19 cases in 2020 (y-axis) by UFO sightings in 2019 (x-axis). Each point represents a state. The plot on the right shows the same data, but has been adjusted to display per capita measurements. Interesting states with higher COVID cases or UFO sightings, both raw and per capita adjusted, have been highlighted with the geom_text function. Visually, there appears to be no correlation between UFO sightings in 2019 and the number of COVID cases in states. 
 
 Data sources:
 
@@ -221,6 +221,6 @@ datatable(covid,
 
 ***
 
-The following table shows each county within the United States by name on the right side along with the total number of deaths in that county on the left. This data was recorded on the ... Confirmed cases are important in looking at the current direction the disease is progressing. However, looking at the mortality reveals the burden of the disease, which is important in deciding where to allocate resources. The search bar can be used for looking up a specific county.
+The following table shows each county within the United States by name on the right side with the total number of deaths in that county on the left. Confirmed cases are important in looking at the current direction of how the disease is progressing. Looking at the mortality numbers provides key information regarding the burden of the disease, which is an important consideration in deciding where to allocate resources. The search bar can be used for looking up a specific county.
 
 Data source:
