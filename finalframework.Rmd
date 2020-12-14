@@ -5,7 +5,7 @@ runtime: shiny
 output: 
   flexdashboard::flex_dashboard:
     storyboard: true
-    theme: cerulean
+    theme: lumen
 ---
 
 ```{r setup, include=FALSE}
@@ -58,7 +58,7 @@ popup_ufo <- paste0("<strong>Description: </strong>",
 
 ```
 
-### **Interactive Map** UFO Sightings and Confirmed Cases of COVID-19 per 100,000 {data-commentary-width=300}
+### **Interactive Map**  UFO Sightings and Confirmed Cases of COVID-19 per 100,000 {data-commentary-width=300}
 
 ```{r interactive_map, eval=TRUE}
 
@@ -89,6 +89,9 @@ leaflet() %>%
 When first opened, the interactive map shows the parameter of Colorado. However, it shows the entire United States when zoomed outward. It's designed to be a county-level map where each county is outlined. The gradient color scale on the lower left represents confirmed COVID-19 cases per 100,000 people. The lighter the color represents less confirmed cases while the darker red color indicates higher confirmed cases per 100,000 people within that county. When the individual counties are clicked, a bubble pops up stating the name of the county along with the amount of cases. Additionally, there are multiple alien icons indicating an occurrence of at least one UFO sighting. The circles with numbers inside also indicate the number of UFO sightings, but they are condensed to avoid overlapping alien icons. When clicked, they will expand to reveal more alien icons. When the icons are clicked, the description of the UFO sighting appears.
 
 Data sources: 
+
+[Confirmed COVID-19 Cases](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)
+[National UFO Reporting Center](http://www.nuforc.org/webreports.html)
 
 ```{r scatterplot_framework, include = FALSE, eval=TRUE}
 
@@ -178,7 +181,7 @@ ply2 <- ggplotly(plottwo)
 
 ```
 
-### **Scatterplots** Looking into 2020 COVID-19 Cases and 2019 UFO Sightings in the Lower 48 States  {data-commentary-width=300}
+### **Scatterplots**  COVID-19 Cases (2020) and UFO Sightings (2019) in the Lower 48 States  {data-commentary-width=300}
 
 ```{r scatterplots_final, eval=TRUE}
 
@@ -192,7 +195,10 @@ The scatterplot on the left shows COVID-19 cases in 2020 (y-axis) by UFO sightin
 
 Data sources:
 
-### **Mortality Table** Table of Total Deaths per County in the United States {data-commentary-width=300}
+[Confirmed COVID-19 Cases](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)
+[National UFO Reporting Center](http://www.nuforc.org/webreports.html)
+
+### **Mortality Table**  Table of Total Deaths per County in the United States {data-commentary-width=300}
 
 ```{r death_table, eval= TRUE}
 
@@ -224,3 +230,5 @@ datatable(covid,
 The following table shows each county within the United States by name on the right side with the total number of deaths in that county on the left. Confirmed cases are important in looking at the current direction of how the disease is progressing. Looking at the mortality numbers provides key information regarding the burden of the disease, which is an important consideration in deciding where to allocate resources. The search bar can be used for looking up a specific county.
 
 Data source:
+
+[Confirmed COVID-19 Cases](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)
